@@ -19,6 +19,23 @@ def home(request):
     # include .html file extension 
     return render(request, 'home.html')
 
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      # Save the user to the db
+      user = form.save()
+      # Automatically log in the new user
+      login(request, user)
+      return redirect('index')
+    else:
+      error_message = 'Invalid sign up - try again'
+  # A bad POST or a GET request, so render signup template
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
+
 # user req
 def about(request):
     return render(request, 'about.html')
@@ -39,5 +56,3 @@ def recipes_detail(request, recipe_id):
     # by using exclude() method 
     dish_types_recipe_doesnt_have = Dish_Type.objects.exclude(id_in = id_list)
     
-
-
