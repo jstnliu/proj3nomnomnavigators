@@ -38,6 +38,7 @@ def recipes_detail(request, recipe_id):
     # query for dish_types cat DOESN'T have
     # by using exclude() method 
     dish_types_recipe_doesnt_have = Dish_Type.objects.exclude(id_in = id_list)
-    
+    review_form = ReviewForm()
+    return render(request, 'recipes/detail.html', )
 
 
