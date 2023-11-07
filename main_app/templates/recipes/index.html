@@ -13,6 +13,9 @@
         <p>Description: {{ recipe.description|linebreaks }}</p>
         <p>Directions: {{ recipe.directions }}</p>
       </div>
+      <div class="card-action">
+        <a href="{% url 'recipes_delete' recipe.id %}">Delete</a>
+      </div>
     </div>
   </a>
 {% endfor %}
