@@ -11,7 +11,10 @@
         <p>Serving Size: {{ recipe.serving_size }}</p>
         <p>Ingredients: {{ recipe.ingredients }}</p>
         <p>Description: {{ recipe.description|linebreaks }}</p>
-        <p>Directions: {{ recipe.directions }}</p>
+        <p>Directions: {{ recipe.directions|linebreaks }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'recipes_update' recipe.id %}">Edit</a>
       </div>
     </div>
   </div>

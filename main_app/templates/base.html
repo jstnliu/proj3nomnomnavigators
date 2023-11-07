@@ -21,6 +21,8 @@
                 <ul class="right">
                     <li><a href="{% url 'about' %}">About</a></li>
                   {% if user.is_authenticated %}
+                    <li><a href="{% url 'dish_types_create' %}">Add Dish Information</a></li>
+                    <li><a href="{% url 'dish_types_index' %}">View All Dish Information</a></li>
                     <li><a href="{% url 'recipes_create' %}">Add a Recipe</a></li>
                     <li><a href="{% url 'index' %}">View All Recipes</a></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>

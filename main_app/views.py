@@ -107,24 +107,24 @@ def add_comment(request, recipe_id):
     return redirect('detail', recipe_id = recipe_id)
 
 class Dish_TypeList(LoginRequiredMixin, ListView):
-   model = Recipe
+   model = Dish_Type
 
 class Dish_TypeDetail(LoginRequiredMixin, DetailView):
-   model = Recipe
+   model = Dish_Type
 
 class Dish_TypeCreate(LoginRequiredMixin, CreateView):
-   model = Recipe
+   model = Dish_Type
    fields = '__all__'
 
 class Dish_TypeUpdate(LoginRequiredMixin, UpdateView):
-   model = Recipe
+   model = Dish_Type
    fields = [
       'cuisine',
       'diet'
     ]
 
 class Dish_TypeDelete(LoginRequiredMixin, DeleteView):
-   model = Recipe
+   model = Dish_Type
    success_url = '/dish_type'
 
 @login_required
