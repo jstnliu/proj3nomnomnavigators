@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Available Dish Information Tags</h1>
+
+{% for dish_type in dish_type_list %}
+  <a href="{% url 'dish_types_detail' dish_type.id %}">
+    <div class="card">
+        <div class="card-content">
+            <p>Cuisine: {{ dish_type.cuisine }}</p>
+            <p>Diet: {{ dish_type.diet }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}

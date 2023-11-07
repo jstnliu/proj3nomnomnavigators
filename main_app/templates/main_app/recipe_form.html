@@ -2,11 +2,11 @@
 
 {% block content %}
 
-    {% if object %}
-        <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
-    {% else %}
-        <h1>Add Recipe</h1>
-    {% endif %}
+{% if object %}
+    <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
+{% else %}
+    <h1>Add Recipe</h1>
+{% endif %}
 
 <!-- Leaving the action empty makes the form post to the same url used to display it -->
 <form action="" method="POST">
@@ -14,7 +14,11 @@
     <table>
         {{ form.as_table }}
     </table>
+{% if object %}
+    <input type="submit" value="Edit Recipe" class="btn">
+{% else %}
     <input type="submit" value="Add Recipe" class="btn">
+{% endif %}
 </form>
 
 {% endblock %}
