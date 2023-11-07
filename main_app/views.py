@@ -71,7 +71,7 @@ class RecipeCreate(LoginRequiredMixin, CreateView):
       'ingredients',
       'description',
       'directions',
-   ]
+    ]
 
    def form_valid(self, form):
     #   assign logged-in user (self.request.user)
@@ -121,7 +121,7 @@ class Dish_TypeUpdate(LoginRequiredMixin, UpdateView):
    fields = [
       'cuisine',
       'diet'
-   ]
+    ]
 
 class Dish_TypeDelete(LoginRequiredMixin, DeleteView):
    model = Recipe
