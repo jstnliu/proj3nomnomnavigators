@@ -52,15 +52,15 @@ def recipes_index(request):
 def recipes_detail(request, recipe_id):
     recipe = Recipe.objects.get(id = recipe_id)
     # list of of dish_type ids that recipe DOES have
-    id_list = recipe.dish_types.all().values_list('id')
+    # id_list = recipe.dish_types.all().values_list('id')
     # query for dish_types cat DOESN'T have
     # by using exclude() method 
-    dish_types_recipe_doesnt_have = Dish_Type.objects.exclude(id_in = id_list)
+    # dish_types_recipe_doesnt_have = Dish_Type.objects.exclude(id_in = id_list)
     review_form = ReviewForm()
     return render(request, 'recipes/detail.html', {
        'recipe': recipe,
        'review_form': review_form,
-       'dish_type': dish_types_recipe_doesnt_have,
+    #    'dish_type': dish_types_recipe_doesnt_have,
     })
 
 class RecipeCreate(LoginRequiredMixin, CreateView):
