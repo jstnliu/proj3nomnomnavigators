@@ -13,19 +13,22 @@
 </head>
 <body class="background">
     <header class="navbar-fixed">
-        <nav class="light-green darken-3">
+        <nav class="green lighten-1">
             <div class="nav-wrapper">
                 <ul>
                     <li><a href="{% url 'home' %}"><img src="{% static 'NomNomLogo.png' %}" id="logo"></a></li>
                 </ul>
                 <ul class="right">
                     <li><a href="{% url 'about' %}">About</a></li>
-                 
+                  {% if user.is_authenticated %}
+                    <li><a href="{% url 'recipes_create' %}">Add a Recipe</a></li>
                     <li><a href="{% url 'index' %}">View All Recipes</a></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
-               
+                  {% else %}
                     <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    <li><a href="{% url 'login' %}">Log In</a></li>      
+                    <li><a href="{% url 'login' %}">Log In</a></li> 
+                  {% endif %}    
+                </ul>
             </div>
         </nav>
     </header>
@@ -33,7 +36,7 @@
       {% block content %}
       {% endblock %}
     </main>
-  	<footer class="page-footer light-green darken-3">
+  	<footer class="page-footer green lighten-1">
        <div class="right">All Rights Reserved, &copy; 2023 NomNom Navigator &nbsp;</div>
     </footer>
 </body>
