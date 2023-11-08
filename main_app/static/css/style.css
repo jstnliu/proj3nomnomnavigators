@@ -1,18 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
-#logo {
-    padding-top: 6px;
-    scale: .9
-}
 
-.navbar-fixed {
-  font-size: 48px;
+#logo {
+  padding-top: 22px;
+  width: 200px; /* Set the desired width */
+  height: 60px; /* Set the desired height */
+   
 }
 
 body {
   font-family: 'Concert One', sans-serif;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   }
 
 main {
@@ -20,8 +19,18 @@ main {
   }
   
 footer.page-footer {
-  font-family: 'Comfortaa', sans-serif;
-    padding-top: 0;
-    text-align: right;
+  font-family: 'Concert One', sans-serif;
+  padding-top: 0;
+  text-align: right;
   }
+
+  nav {
+    padding: 10px; /* Adjust the padding as needed */
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
   

@@ -7,19 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NomNom Navigator</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body class="background">
-    <header class="navbar-fixed">
+    <header>
         <nav class="green lighten-1" id="navbar-font">
             <div class="nav-wrapper">
+              <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
                 <ul>
-                    <li><a href="{% url 'home' %}"><img src="{% static 'NomNomLogo.png' %}" id="logo"></a></li>
+                  <a href="{% url 'home' %}"><img src="{% static 'nomnom.svg' %}" id="logo" alt="NomNom Navigator Logo"/></a>
                 </ul>
-                <ul class="right">
-                    <!-- ABOUT TAB HERE -->
+                <ul class="right hide-on-med-and-down">
                   {% if user.is_authenticated %}
                     <li><a href="{% url 'dish_types_create' %}">Add Cuisine</a></li>
                     <li><a href="{% url 'dish_types_index' %}">All Cuisines</a></li>
@@ -33,6 +35,18 @@
                 </ul>
             </div>
         </nav>
+        <ul class="sidenav right" id="mobile-demo">
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'dish_types_create' %}">Add Cuisine</a></li>
+          <li><a href="{% url 'dish_types_index' %}">All Cuisines</a></li>
+          <li><a href="{% url 'recipes_create' %}">Add a Recipe</a></li>
+          <li><a href="{% url 'index' %}">All Recipes</a></li>
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+        {% else %}
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          <li><a href="{% url 'login' %}">Log In</a></li> 
+        {% endif %}  
+       </ul>  
     </header>
     <main class="container">
       {% block content %}
@@ -41,5 +55,11 @@
   	<footer class="page-footer green lighten-1">
        <div class="right">All Rights Reserved, &copy; 2023 NomNom Navigator &nbsp;</div>
     </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, {edge: 'right'});
+      });
+    </script>
 </body>
 </html>
