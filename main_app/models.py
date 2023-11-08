@@ -56,16 +56,16 @@ class Recipe(models.Model):
                 return []
 
     def __str__(self):
-        return self.title       
+        return f'{self.name} ({self.id})'       
 
 
     def get_absolute_url(self):
         return reverse('detail', kwargs = {
             'recipe_id': self.id
-    })
+        })
 
-    def reviewed_for_today(self):
-        return self.review_set.filter(date = date.today()).count()
+    # def reviewed_for_today(self):
+    #     return self.review_set.filter(date = date.today()).count()
     
 class Review(models.Model):
     date = models.DateField('Date Posted')

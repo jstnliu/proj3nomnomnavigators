@@ -11,10 +11,9 @@
         <p>Serving Size: {{ recipe.serving_size }}</p>
         <p>Ingredients: {{ recipe.ingredients }}</p>
         <p>Description: {{ recipe.description|linebreaks }}</p>
-        <!-- Might not need directions here, since it is the index -->
-        <p>Directions: {{ recipe.directions|linebreaks }}</p>
       </div>
       <div class="card-action">
+        <a href="{% url 'recipes_update' recipe.id %}">Edit</a>
         <a href="{% url 'recipes_delete' recipe.id %}">Delete</a>
       </div>
     </div>

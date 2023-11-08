@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Available Dish Information Tags</h1>
+<h1>Available Cuisine Tags</h1>
 
 {% for dish_type in dish_type_list %}
   <a href="{% url 'dish_types_detail' dish_type.id %}">
@@ -9,6 +9,10 @@
         <div class="card-content">
             <p>Cuisine: {{ dish_type.cuisine }}</p>
             <p>Diet: {{ dish_type.diet }}</p>
+        </div>
+        <div class="card-action">
+            <a href="{% url 'dish_types_update' dish_type.id %}">Edit</a>
+            <a href="{% url 'dish_types_delete' dish_type.id %}">Delete</a>
         </div>
     </div>
   </a>

@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Dish Information</h1>
+<h1>Cuisine Information</h1>
 
 <div class="row">
   <div class="col s6 col-offset-3">
     <div class="card">
       <div class="card-content">
         <span class="card-title">{{ dish_type.cuisine }}</span>
-        <p>Color: {{ dish_type.diet }}</p>
+        <p>Diet: {{ dish_type.diet }}</p>
       </div>
       <div class="card-action">
-        <a href="{% url 'dish_type_update' dish_type.id %}">Edit</a>
+        <a href="{% url 'dish_types_update' dish_type.id %}">Edit</a>
+        <a href="{% url 'dish_types_delete' dish_type.id %}">Delete</a>
       </div>
     </div>
   </div>

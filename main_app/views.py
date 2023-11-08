@@ -37,9 +37,9 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-@login_required
-def about(request):
-    return render(request, 'about.html')
+# @login_required
+# def about(request):
+#     return render(request, 'about.html')
 
 @login_required
 def recipes_index(request):
@@ -60,7 +60,7 @@ def recipes_detail(request, recipe_id):
     return render(request, 'recipes/detail.html', {
        'recipe': recipe,
        'review_form': review_form,
-    #    'dish_type': dish_types_recipe_doesnt_have,
+    #    'dish_types': dish_types_recipe_doesnt_have,
     })
 
 class RecipeCreate(LoginRequiredMixin, CreateView):
@@ -94,7 +94,7 @@ class RecipeDelete(LoginRequiredMixin, DeleteView):
     success_url = '/recipes'
 
 @login_required
-def add_comment(request, recipe_id):
+def add_review(request, recipe_id):
     # create ModelForm instance using
     # data submitted in form
     form = ReviewForm(request.POST)
@@ -125,7 +125,7 @@ class Dish_TypeUpdate(LoginRequiredMixin, UpdateView):
 
 class Dish_TypeDelete(LoginRequiredMixin, DeleteView):
    model = Dish_Type
-   success_url = '/dish_type'
+   success_url = '/dish_types'
 
 @login_required
 def assoc_dish_type(request, recipe_id, dish_type_id):
