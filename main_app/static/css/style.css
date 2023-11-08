@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
 #logo {
     padding-top: 6px;
-    scale: .9
+    scale: 2;
 }
 
 .navbar-fixed {
@@ -9,6 +9,7 @@
 }
 
 body {
+  background-color: red;
   font-family: 'Concert One', sans-serif;
     display: flex;
     min-height: 100vh;
