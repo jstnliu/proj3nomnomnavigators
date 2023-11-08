@@ -30,7 +30,7 @@ class Recipe(models.Model):
     ingredients = models.TextField(blank = True)
     description = models.TextField()
     directions = models.TextField()
-    label = 
+    # label = 
     # M:M relation tie-in
     dish_types = models.ManyToManyField(Dish_Type)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
