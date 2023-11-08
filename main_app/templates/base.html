@@ -19,12 +19,12 @@
                     <li><a href="{% url 'home' %}"><img src="{% static 'NomNomLogo.png' %}" id="logo"></a></li>
                 </ul>
                 <ul class="right">
-                    <li><a href="{% url 'about' %}">About</a></li>
+                    <!-- ABOUT TAB HERE -->
                   {% if user.is_authenticated %}
-                    <li><a href="{% url 'dish_types_create' %}">Add Dish Information</a></li>
-                    <li><a href="{% url 'dish_types_index' %}">View All Dish Information</a></li>
+                    <li><a href="{% url 'dish_types_create' %}">Add Cuisine</a></li>
+                    <li><a href="{% url 'dish_types_index' %}">All Cuisines</a></li>
                     <li><a href="{% url 'recipes_create' %}">Add a Recipe</a></li>
-                    <li><a href="{% url 'index' %}">View All Recipes</a></li>
+                    <li><a href="{% url 'index' %}">All Recipes</a></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                   {% else %}
                     <li><a href="{% url 'signup' %}">Sign Up</a></li>

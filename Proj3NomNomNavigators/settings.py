@@ -14,7 +14,7 @@ from pathlib import Path
 
 # .env imports
 import environ
-import os
+
 environ.Env()
 environ.Env.read_env()
 
