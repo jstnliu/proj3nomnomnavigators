@@ -19,13 +19,12 @@ main {
   }
   
 footer.page-footer {
-  font-family: 'Concert One', sans-serif;
   padding-top: 0;
   text-align: right;
   }
 
-  nav {
-    padding: 10px; /* Adjust the padding as needed */
+nav {
+  padding: 10px; /* Adjust the padding as needed */
 }
 
 .nav-wrapper {
