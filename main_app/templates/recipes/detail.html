@@ -10,7 +10,7 @@
         <!-- Details -->
         <span class="card-title">{{ recipe.name }}</span>
         <p>Serving Size: {{ recipe.serving_size }}</p>
-        <p>Ingredients: {{ recipe.ingredients }}</p>
+        <p>Ingredients: {{ recipe.ingredients|linebreaks }}</p>
         <p>Description: {{ recipe.description|linebreaks }}</p>
         <p>Directions: {{ recipe.directions|linebreaks }}</p>
       </div>
@@ -60,6 +60,9 @@
       </div>
   </div>
 </div>
+<!-- Nutrition Label -->
+<a href="{% url 'label_create' recipe.id %}">Create Nutrition Label</a>
+  
 
 <script>
   const dateEl = document.getElementById('id_date');
