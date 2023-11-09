@@ -15,7 +15,7 @@ from pathlib import Path
 # .env imports
 
 import environ
-
+import os
 environ.Env()
 environ.Env.read_env()
 
@@ -26,11 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yz-#rvzgl6rehz=sfu&9e_@hifvaj9p_7-32@j@nw4#su2-w%*'
+# SECURITY WARNING: keep the secret key used in production secret! 
+SECRET_KEY = os.environ['SECRET_KEY']
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production! 
+# Replace the DEBUG = True with:
+DEBUG = True if os.environ['MODE'] == 'dev' else False
+
 
 ALLOWED_HOSTS = []
 
@@ -89,19 +91,19 @@ DATABASES = {
 }
 
 # NEON DB STUFF 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ['DB_NAME'],
-#         'USER': os.environ['DB_USER'],
-#         'PASSWORD': os.environ['DB_PASSWORD'],
-#         'HOST': os.environ['DB_HOST'],
-#         # 'PORT': '[port]',
-#          'OPTIONS': {
-#              'sslmode': 'require',
-#         }
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': os.environ['DB_HOST'],
+        # 'PORT': '[port]',
+         'OPTIONS': {
+             'sslmode': 'require',
+        }
+    }
+}
 
 
 # Password validation
@@ -149,3 +151,8 @@ LOGOUT_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Other settings above
+# Configure Django App for Heroku.
+import django_on_heroku
+django_on_heroku.settings(locals())

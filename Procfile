@@ -1,0 +1,1 @@
+web: gunicorn Proj3NomNomNavigators.wsgi

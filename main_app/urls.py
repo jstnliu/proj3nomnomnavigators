@@ -12,6 +12,7 @@ urlpatterns = [
     path('recipes/<int:pk>/delete/', views.RecipeDelete.as_view(), name = 'recipes_delete'),
     path('recipes/<int:pk>/update/', views.RecipeUpdate.as_view(), name = 'recipes_update'),
     path('recipes/<int:recipe_id>/add_review/', views.add_review, name='add_review'),
+    path('recipes/nutrition/<int:recipe_id>/', views.label_create, name = 'label_create'),
     # 	DISH_TYPE FUNCTIONS
 	path('dish_types/', views.Dish_TypeList.as_view(), name = 'dish_types_index'),
     path('dish_types/<int:pk>/', views.Dish_TypeDetail.as_view(), name = 'dish_types_detail'),
