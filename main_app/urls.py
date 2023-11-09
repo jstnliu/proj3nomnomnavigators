@@ -23,5 +23,4 @@ urlpatterns = [
   	path('recipes/<int:recipe_id>/add_photo/', views.add_photo, name = 'add_photo'),
     # 	USER FUNCTIONS
     path('accounts/signup/', views.signup, name = 'signup'),
-
 ]
