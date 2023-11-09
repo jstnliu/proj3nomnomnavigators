@@ -4,7 +4,7 @@
 <h1>Recipe Details</h1>
 
 <div class="row">
-  <div class="col s6">
+  <div class="col s12">
     <div class="card">
       <div class="card-content">
         <!-- Details -->
@@ -19,50 +19,59 @@
         <a href="{% url 'recipes_delete' recipe.id %}">Delete</a>
       </div>
     </div>
-      {% for photo in recipe.photo_set.all %}
-        <img class="responsive-img card-panel" src="{{photo.url}}">
-      {% empty %}
-        <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-      {% endfor %}
-        <form action="{% url 'add_photo' recipe.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-      {% csrf_token %}
-      <input type="file" name="photo-file">
-      <br><br>
-      <button type="submit" class="btn">Upload Photo</button>
-    </form>
-  </div>
-  <div class="row">
-    <!-- REVIEW SECTION -->
-      <div class="col s6">
-        <form action="{% url 'add_review' recipe.id %}" method="POST">
-          {% csrf_token %}
-          <!-- render inputs -->
-          {{ review_form.as_p }}
-          <input type="submit" class="btn" value="Comment">
-        </form>
-        <br>
-        <table class="striped">
-          <thead>
-            <tr><th>Date</th><th>Rating</th><th>Comment</th></tr>
-          </thead>
-          <tbody>
-            {% for review in recipe.review_set.all %}
-              <tr>
-                <td>{{ review.date }}</td>
-                <td>{{ review.get_rating_display }}</td>
-                <div class="input_field">
-                  <td>{{ review.get_comment_display }}</td>
-                </div>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
   </div>
 </div>
-<!-- Nutrition Label -->
-<a href="{% url 'label_create' recipe.id %}">Create Nutrition Label</a>
-  
+
+
+<div class="row">
+  <!-- REVIEW SECTION -->
+  <!-- TEMP CHANGE FOR REVIEW TMRW 
+  - MAKE ENTIRE REVIEW SECTION A NEW ROW
+  - REPLACE THIS SPACE WITH THE NUTRITION LABEL-->
+  <div class="col s6">
+      <div class="card">
+        <div class="card-content">
+            <!-- Nutrition Label -->
+          <a href="{% url 'label_create' recipe.id %}">Create Nutrition Label</a>
+        </div>
+      </div> 
+    </div>
+  <div class="col s6">
+    {% for photo in recipe.photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
+      <form action="{% url 'add_photo' recipe.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    {% csrf_token %}
+    <input type="file" name="photo-file">
+    <br><br>
+    <button type="submit" class="btn">Upload Photo</button>
+  </form>
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col">
+    <form action="{% url 'add_review' recipe.id %}" method="POST">
+      {% csrf_token %}
+      <!-- render inputs -->
+      {{ review_form.as_p }}
+      <input type="submit" class="btn" value="Comment">
+    </form>
+    <br>
+    <table class="striped">
+      <h3>Comments</h3>
+      <tbody>
+        {% for review in recipe.review_set.all %}
+        <tr><td>Date: {{ review.date }}</td></tr>
+        <tr><td>Rating: {{ review.get_rating_display }}</td></tr>
+        <tr><td>{{ review.comment }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <script>
   const dateEl = document.getElementById('id_date');
@@ -76,9 +85,5 @@
   const selectEl = document.getElementById('id_rating');
   M.FormSelect.init(selectEl);
 
-  const commentEl = document.getElementById('id_comment');
-  $(document).ready(function() {
-    $('commentEl').characterCounter();
-  });
 </script>
 {% endblock %}
