@@ -27,10 +27,10 @@
                     <li><a href="{% url 'dish_types_index' %}">All Cuisines</a></li>
                     <li><a href="{% url 'recipes_create' %}">Add a Recipe</a></li>
                     <li><a href="{% url 'index' %}">All Recipes</a></li>
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    <li><a class="waves-effect blue-grey lighten-2 btn-small" href="{% url 'logout' %}">Log Out</a></li>
                   {% else %}
-                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    <li><a href="{% url 'login' %}">Log In</a></li> 
+                    <li><a class="waves-effect light-blue lighten-1 btn-small" href="{% url 'signup' %}">Sign Up</a></li>
+                    <li><a class="waves-effect amber lighten-1 btn-small" href="{% url 'login' %}">Log In</a></li> 
                   {% endif %}    
                 </ul>
             </div>
