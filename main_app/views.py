@@ -1,6 +1,8 @@
 import uuid
 import boto3
 import os
+import requests
+import json
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -78,6 +80,7 @@ class RecipeCreate(LoginRequiredMixin, CreateView):
     # form.instace is recipe
       form.instance.user = self.request.user
       return super().form_valid(form)
+   
    
 class RecipeUpdate(LoginRequiredMixin, UpdateView):
     model = Recipe
@@ -158,5 +161,21 @@ def add_photo(request, recipe_id):
             print(e)
     return redirect('detail', recipe_id = recipe_id)
        
+def label_create(request, recipe_id):
+# work on feeding actual food ing into payload
+    recipe = Recipe.objects.get(id = recipe_id)
+    ingredients_list = recipe.get_ingredients_list()
+    url = "https://api.edamam.com/api/nutrition-details?app_key=fa795efd1a20b3360e47f10934c667ab&app_id=27c6d9ed"
 
+    payload = json.dumps({
+    "title": f"{recipe.name}",
+    "ingr": ingredients_list,
+    })
+    headers = {
+    'Content-Type': 'application/json'
+    }
+# send response to detail.html
+    response = requests.request("POST", url, headers=headers, data=payload)
 
+    print(response.text)
+    return redirect('detail', recipe_id = recipe_id) 

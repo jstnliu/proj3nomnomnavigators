@@ -23,6 +23,22 @@ class Dish_Type(models.Model):
         return reverse('dish_types_detail', kwargs = {
             'pk': self.id
         })
+    
+# EDAMAM API Model (incomplete)
+# probably have to import stuff for it later on
+# create a model for label
+# get what we want from response
+# what attributes for model Label we want are from response 
+# in html
+    # recipe.label.attr
+class Nutrition_Label(models.Model):
+    calories = models.IntegerField()
+    total_fats = models.IntegerField()
+    cholesterol = models.IntegerField()
+    sodium = models.IntegerField()
+    total_carbs = models.IntegerField()
+    protein = models.IntegerField()
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
 
 class Recipe(models.Model):
     name = models.CharField(max_length = 75)
@@ -30,6 +46,8 @@ class Recipe(models.Model):
     ingredients = models.TextField(blank = True)
     description = models.TextField()
     directions = models.TextField()
+    # One:One relation with Nutrition Label
+    nutrition_label = models.OneToOneField(Nutrition_Label, on_delete=models.CASCADE, null=True, blank=True)
     # M:M relation tie-in
     dish_types = models.ManyToManyField(Dish_Type)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -96,14 +114,5 @@ class Photo(models.Model):
     def __str__(self):
         return f'Photo for recipe_id: {self.recipe_id} @{self.url}'
 
-# # EDAMAM API Model (incomplete)
-# # probably have to import stuff for it later on
-# class Nutrition_Label(models.Model):
-#     calories = models.IntegerField()
-#     total_fats = models.IntegerField()
-#     cholesterol = models.IntegerField()
-#     sodium = models.IntegerField()
-#     total_carbs = models.IntegerField()
-#     protein = models.IntegerField()
-#     user = models.ForeignKey(User, on_delete = models.CASCADE)
+
 
