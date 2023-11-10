@@ -9,13 +9,15 @@
       <div class="card-content">
         <span class="card-title">{{ recipe.name }}</span>
         <p><b>Serving Size:</b> {{ recipe.serving_size }}</p>
-        <p>Ingredients: {{ recipe.ingredients }}</p>
+        <p>Ingredients: {{ recipe.ingredients|linebreaks }}</p>
         <p>Description: {{ recipe.description|linebreaks }}</p>
       </div>
+       <!-- if statement for 'user' visibility
       <div class="card-action">
-        <a href="{% url 'recipes_update' recipe.id %}">Edit</a>
-        <a href="{% url 'recipes_delete' recipe.id %}">Delete</a>
-      </div>
+        <a href="% url 'recipes_update' recipe.id %}">Edit</a>
+        <a href="% url 'recipes_delete' recipe.id %}">Delete</a>
+      </div> -->
+      <!-- endif -->
     </div>
   </a>
 {% endfor %}

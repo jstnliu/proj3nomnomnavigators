@@ -33,3 +33,6 @@ nav {
   align-items: center;
 }
   
+.border {
+  border: 3px solid black
+}

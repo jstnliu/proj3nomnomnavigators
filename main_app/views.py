@@ -3,6 +3,7 @@ import boto3
 import os
 import requests
 import json
+from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -14,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 # Import the mixin for class-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
 # models imports
-from .models import Recipe, Dish_Type, Photo
+from .models import Recipe, Nutrition_Label, Photo, Nutrient
 from .forms import ReviewForm
 
 # home view
@@ -170,20 +171,89 @@ def add_photo(request, recipe_id):
     return redirect('detail', recipe_id = recipe_id)
        
 def label_create(request, recipe_id):
-# work on feeding actual food ing into payload
-    recipe = Recipe.objects.get(id = recipe_id)
+    recipe = Recipe.objects.get(id=recipe_id)
+
+    # Check if the recipe already has a nutrition label
+    if recipe.nutrition_label:
+        # If it does, update the existing nutrition label
+        nutrition_label = recipe.nutrition_label
+    else:
+        # If not, create a new nutrition label
+        nutrition_label = Nutrition_Label()
+
     ingredients_list = recipe.get_ingredients_list()
     url = "https://api.edamam.com/api/nutrition-details?app_key=fa795efd1a20b3360e47f10934c667ab&app_id=27c6d9ed"
 
     payload = json.dumps({
-    "title": f"{recipe.name}",
-    "ingr": ingredients_list,
+        "title": f"{recipe.name}",
+        "ingr": ingredients_list,
     })
     headers = {
-    'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
     }
-# send response to detail.html
+
+    # Send request to Edamam API
     response = requests.request("POST", url, headers=headers, data=payload)
 
-    print(response.text)
-    return redirect('detail', recipe_id = recipe_id) 
+    if response.status_code == 200:
+        # Parse the response and update Nutrition_Label instance
+        nutrition_data = json.loads(response.text)
+
+        nutrition_label.yield_value = nutrition_data.get('yield', 1.0)
+        nutrition_label.calories = nutrition_data['calories']
+        nutrition_label.total_fats = nutrition_data.get('total_fats', 0.0)
+        nutrition_label.cholesterol = nutrition_data.get('cholesterol', 0.0)
+        nutrition_label.sodium = nutrition_data.get('sodium', 0.0)
+        nutrition_label.total_carbs = nutrition_data.get('total_carbs', 0.0)
+        nutrition_label.protein = nutrition_data.get('protein', 0.0)
+        # Update or create nutrients
+        nutrients = nutrition_data.get('totalNutrients', {})
+        nutrition_label.user = request.user
+        nutrition_label.save()
+
+        # Associate the Nutrition_Label with the Recipe
+        recipe.nutrition_label = nutrition_label
+        recipe.save()
+
+        # Associate nutrients with Nutrition_Label
+        for nutrient_label, nutrient_data in nutrients.items():
+            nutrient, created = Nutrient.objects.get_or_create(
+                label=nutrient_label,
+                defaults={'quantity': nutrient_data.get('quantity', 0.0), 'unit': nutrient_data.get('unit', '')}
+            )
+            nutrition_label.nutrients.add(nutrient)
+
+    else:
+        # If the API request is not successful, return a bad request response
+        return HttpResponseBadRequest(response.text)
+
+    return redirect('detail', recipe_id=recipe_id)
+# # work on feeding actual food ing into payload
+#     recipe = Recipe.objects.get(id = recipe_id)
+#     ingredients_list = recipe.get_ingredients_list()
+#     url = "https://api.edamam.com/api/nutrition-details?app_key=fa795efd1a20b3360e47f10934c667ab&app_id=27c6d9ed"
+
+#     payload = json.dumps({
+#     "title": f"{recipe.name}",
+#     "ingr": ingredients_list,
+#     })
+#     headers = {
+#     'Content-Type': 'application/json'
+#     }
+# # send response to detail.html
+#     response = requests.request("POST", url, headers=headers, data=payload)
+
+#     if response.status_code == 200:
+#             # Parse the response and create a Nutrition_Label instance
+#             nutrition_data = json.loads(response.text)
+#             nutrition_label = Nutrition_Label.objects.create(
+#                 calories=nutrition_data['calories'],
+#                 # Add other fields based on your JSON structure
+#                 user=request.user  # or whatever logic you use to get the user
+#             )
+#             # Associate the Nutrition_Label with the Recipe
+#             recipe.nutrition_label = nutrition_label
+#             recipe.save()
+
+#     print(response.text)
+#     return redirect('detail', recipe_id = recipe_id) 
