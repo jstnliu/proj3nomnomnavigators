@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Recipe List</h1>
+<h1>Your Recipes</h1>
 
-<form method="get" class="search">
-  <input type="text" name="q" placeholder="Search Recipes">
-  <button type="submit">Search</button>
-</form>
-<br>
 {% for recipe in recipes %}
   <a href="{% url 'detail' recipe.id %}">
     <div class="card">
@@ -16,10 +11,6 @@
         <p><b>Serving Size:</b> {{ recipe.serving_size }}</p>
         <p>Ingredients: {{ recipe.ingredients }}</p>
         <p>Description: {{ recipe.description|linebreaks }}</p>
-      </div>
-      <div class="card-action">
-        <a href="{% url 'recipes_update' recipe.id %}">Edit</a>
-        <a href="{% url 'recipes_delete' recipe.id %}">Delete</a>
       </div>
     </div>
   </a>

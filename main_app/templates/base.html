@@ -17,16 +17,18 @@
     <header>
         <nav class="green lighten-1" id="navbar-font">
             <div class="nav-wrapper">
+         
               <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
                 <ul>
                   <a href="{% url 'home' %}"><img src="{% static 'nomnom.svg' %}" id="logo" alt="NomNom Navigator Logo"/></a>
                 </ul>
                 <ul class="right hide-on-med-and-down">
                   {% if user.is_authenticated %}
-                    <li><a href="{% url 'dish_types_create' %}">Add Cuisine</a></li>
-                    <li><a href="{% url 'dish_types_index' %}">All Cuisines</a></li>
+                    <!-- <li><a href=" url 'dish_types_create' %}">Add Cuisine</a></li>
+                    <li><a href=" url 'dish_types_index' %}">All Cuisines</a></li> -->
                     <li><a href="{% url 'recipes_create' %}">Add a Recipe</a></li>
                     <li><a href="{% url 'index' %}">All Recipes</a></li>
+                    <li><a href="{% url 'user_index' %}">Your Recipes</a></li>
                     <li><a class="waves-effect blue-grey lighten-2 btn-small" href="{% url 'logout' %}">Log Out</a></li>
                   {% else %}
                     <li><a class="waves-effect light-blue lighten-1 btn-small" href="{% url 'signup' %}">Sign Up</a></li>
@@ -37,10 +39,11 @@
         </nav>
         <ul class="sidenav right" id="mobile-demo">
           {% if user.is_authenticated %}
-          <li><a href="{% url 'dish_types_create' %}">Add Cuisine</a></li>
-          <li><a href="{% url 'dish_types_index' %}">All Cuisines</a></li>
+          <!-- <li><a href=" url 'dish_types_create' %}">Add Cuisine</a></li> -->
+          <!-- <li><a href=" url 'dish_types_index' %}">All Cuisines</a></li> -->
           <li><a href="{% url 'recipes_create' %}">Add a Recipe</a></li>
           <li><a href="{% url 'index' %}">All Recipes</a></li>
+          <li><a href="{% url 'user_index' %}">Your Recipes</a></li>
           <li><a href="{% url 'logout' %}">Log Out</a></li>
         {% else %}
           <li><a href="{% url 'signup' %}">Sign Up</a></li>

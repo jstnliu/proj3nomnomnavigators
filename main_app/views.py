@@ -3,6 +3,7 @@ import boto3
 import os
 import requests
 import json
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -44,11 +45,26 @@ def signup(request):
 #     return render(request, 'about.html')
 
 @login_required
-def recipes_index(request):
+def recipes_user(request):
     recipes = Recipe.objects.filter(user = request.user)
-    return render(request, 'recipes/index.html', {
+    return render(request, 'recipes/user.html', {
         'recipes': recipes 
     })
+
+#   ENTIRE INDEX
+@login_required
+def recipes_all(request):
+    query = request.GET.get('q', '')  # Get the search query from the request
+    recipes = Recipe.objects.filter(
+        Q(name__icontains=query) |  # Search in name
+        Q(ingredients__icontains=query) |  # Search in ingredients
+        Q(description__icontains=query)  # Search in description
+    )
+    context = {
+        'recipes': recipes,
+        'query': query,  # Pass the query back to the template for display
+    }
+    return render(request, 'recipes/index.html', context)
 
 @login_required
 def recipes_detail(request, recipe_id):

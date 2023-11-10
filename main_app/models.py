@@ -25,12 +25,11 @@ class Dish_Type(models.Model):
         })
     
 # EDAMAM API Model (incomplete)
-# probably have to import stuff for it later on
 # create a model for label
 # get what we want from response
 # what attributes for model Label we want are from response 
 # in html
-    # recipe.label.attr
+    # recipe.nutrition_label.attr
 class Nutrition_Label(models.Model):
     calories = models.IntegerField()
     total_fats = models.IntegerField()
@@ -39,6 +38,8 @@ class Nutrition_Label(models.Model):
     total_carbs = models.IntegerField()
     protein = models.IntegerField()
     user = models.ForeignKey(User, on_delete = models.CASCADE)
+    
+
 
 class Recipe(models.Model):
     name = models.CharField(max_length = 75)
