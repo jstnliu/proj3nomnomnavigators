@@ -126,26 +126,26 @@ def add_review(request, recipe_id):
         new_recipe.save()
     return redirect('detail', recipe_id = recipe_id)
 
-class Dish_TypeList(LoginRequiredMixin, ListView):
-   model = Dish_Type
+# class Dish_TypeList(LoginRequiredMixin, ListView):
+#    model = Dish_Type
 
-class Dish_TypeDetail(LoginRequiredMixin, DetailView):
-   model = Dish_Type
+# class Dish_TypeDetail(LoginRequiredMixin, DetailView):
+#    model = Dish_Type
 
-class Dish_TypeCreate(LoginRequiredMixin, CreateView):
-   model = Dish_Type
-   fields = '__all__'
+# class Dish_TypeCreate(LoginRequiredMixin, CreateView):
+#    model = Dish_Type
+#    fields = '__all__'
 
-class Dish_TypeUpdate(LoginRequiredMixin, UpdateView):
-   model = Dish_Type
-   fields = [
-      'cuisine',
-      'diet'
-    ]
+# class Dish_TypeUpdate(LoginRequiredMixin, UpdateView):
+#    model = Dish_Type
+#    fields = [
+#       'cuisine',
+#       'diet'
+#     ]
 
-class Dish_TypeDelete(LoginRequiredMixin, DeleteView):
-   model = Dish_Type
-   success_url = '/dish_types'
+# class Dish_TypeDelete(LoginRequiredMixin, DeleteView):
+#    model = Dish_Type
+#    success_url = '/dish_types'
 
 @login_required
 def assoc_dish_type(request, recipe_id, dish_type_id):
