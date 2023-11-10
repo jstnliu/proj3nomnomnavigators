@@ -214,6 +214,13 @@ def label_create(request, recipe_id):
         nutrition_label.sodium = nutrition_data.get('sodium', 0.0)
         nutrition_label.total_carbs = nutrition_data.get('total_carbs', 0.0)
         nutrition_label.protein = nutrition_data.get('protein', 0.0)
+        nutrition_label.total_fat = nutrition_data.get('total', 0.0)
+        nutrition_label.saturated_fat = nutrition_data.get('fatty acids, total saturated', 0.0)
+        nutrition_label.trans_fat = nutrition_data.get('fatty acids, total trans', 0.0)
+        nutrition_label.dietary_fiber = nutrition_data.get('fiber, total dietary', 0.0)
+        nutrition_label.total_carbs = nutrition_data.get('carbohydrates (net)', 0.0)
+        nutrition_label.total_sugars = nutrition_data.get('sugars, total', 0.0)
+        nutrition_label.added_sugars = nutrition_data.get('added sugar', 0.0)
         # Update or create nutrients
         nutrients = nutrition_data.get('totalNutrients', {})
         nutrition_label.user = request.user
