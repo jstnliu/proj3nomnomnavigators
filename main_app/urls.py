@@ -16,11 +16,11 @@ urlpatterns = [
     path('recipes/<int:recipe_id>/add_review/', views.add_review, name = 'add_review'),
     path('recipes/nutrition/<int:recipe_id>/', views.label_create, name = 'label_create'),
     # # 	DISH_TYPE FUNCTIONS
-	path('dish_types/', views.Dish_TypeList.as_view(), name = 'dish_types_index'),
-    path('dish_types/<int:pk>/', views.Dish_TypeDetail.as_view(), name = 'dish_types_detail'),
-	path('dish_types/create/', views.Dish_TypeCreate.as_view(), name = 'dish_types_create'),
-    path('dish_types/<int:pk>/delete/', views.Dish_TypeDelete.as_view(), name = 'dish_types_delete'),
-    path('dish_types/<int:pk>/update/', views.Dish_TypeUpdate.as_view(), name = 'dish_types_update'),
+	# path('dish_types/', views.Dish_TypeList.as_view(), name = 'dish_types_index'),
+    # path('dish_types/<int:pk>/', views.Dish_TypeDetail.as_view(), name = 'dish_types_detail'),
+	# path('dish_types/create/', views.Dish_TypeCreate.as_view(), name = 'dish_types_create'),
+    # path('dish_types/<int:pk>/delete/', views.Dish_TypeDelete.as_view(), name = 'dish_types_delete'),
+    # path('dish_types/<int:pk>/update/', views.Dish_TypeUpdate.as_view(), name = 'dish_types_update'),
     #   PHOTO FUNCTIONS
   	path('recipes/<int:recipe_id>/add_photo/', views.add_photo, name = 'add_photo'),
     # 	USER FUNCTIONS
