@@ -46,6 +46,8 @@ class Nutrition_Label(models.Model):
     protein = models.FloatField(default = 0.0)
     nutrients = models.ManyToManyField(Nutrient)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
+    
+
 
     def save(self, *args, **kwargs):
         # If yield_value is not provided, set it to the serving_size of the associated Recipe

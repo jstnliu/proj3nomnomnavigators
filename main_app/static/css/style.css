@@ -7,7 +7,12 @@
    
 }
 
+.btn {
+  font-family: 'Concert One', sans-serif;
+}
+
 body {
+  background-image: url("static/nomback.svg");
   font-family: 'Concert One', sans-serif;
   display: flex;
   min-height: 100vh;
@@ -33,6 +38,7 @@ nav {
   align-items: center;
 }
   
-.border {
-  border: 3px solid black
+.form {
+  font-family: 'Concert One', sans-serif;
 }
+

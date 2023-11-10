@@ -3,6 +3,11 @@
 
 <h1>Recipe List</h1>
 
+<form method="get" class="search">
+  <input type="text" name="q" placeholder="Search Recipes">
+  <button type="submit">Search</button>
+</form>
+<br>
 {% for recipe in recipes %}
   <a href="{% url 'detail' recipe.id %}">
     <div class="card">

@@ -4,6 +4,7 @@ import os
 import requests
 import json
 from django.http import HttpResponseBadRequest
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -54,10 +55,17 @@ def recipes_user(request):
 #   ENTIRE INDEX
 @login_required
 def recipes_all(request):
-    recipes = Recipe.objects.all()
-    return render(request, 'recipes/index.html', {
-        'recipes': recipes 
-    })
+    query = request.GET.get('q', '')  # Get the search query from the request
+    recipes = Recipe.objects.filter(
+        Q(name__icontains=query) |  # Search in name
+        Q(ingredients__icontains=query) |  # Search in ingredients
+        Q(description__icontains=query)  # Search in description
+    )
+    context = {
+        'recipes': recipes,
+        'query': query,  # Pass the query back to the template for display
+    }
+    return render(request, 'recipes/index.html', context)
 
 @login_required
 def recipes_detail(request, recipe_id):
@@ -118,26 +126,26 @@ def add_review(request, recipe_id):
         new_recipe.save()
     return redirect('detail', recipe_id = recipe_id)
 
-# class Dish_TypeList(LoginRequiredMixin, ListView):
-#    model = Dish_Type
+class Dish_TypeList(LoginRequiredMixin, ListView):
+   model = Dish_Type
 
-# class Dish_TypeDetail(LoginRequiredMixin, DetailView):
-#    model = Dish_Type
+class Dish_TypeDetail(LoginRequiredMixin, DetailView):
+   model = Dish_Type
 
-# class Dish_TypeCreate(LoginRequiredMixin, CreateView):
-#    model = Dish_Type
-#    fields = '__all__'
+class Dish_TypeCreate(LoginRequiredMixin, CreateView):
+   model = Dish_Type
+   fields = '__all__'
 
-# class Dish_TypeUpdate(LoginRequiredMixin, UpdateView):
-#    model = Dish_Type
-#    fields = [
-#       'cuisine',
-#       'diet'
-#     ]
+class Dish_TypeUpdate(LoginRequiredMixin, UpdateView):
+   model = Dish_Type
+   fields = [
+      'cuisine',
+      'diet'
+    ]
 
-# class Dish_TypeDelete(LoginRequiredMixin, DeleteView):
-#    model = Dish_Type
-#    success_url = '/dish_types'
+class Dish_TypeDelete(LoginRequiredMixin, DeleteView):
+   model = Dish_Type
+   success_url = '/dish_types'
 
 @login_required
 def assoc_dish_type(request, recipe_id, dish_type_id):
