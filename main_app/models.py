@@ -12,17 +12,22 @@ RATINGS = (
 )
 
 # Create your models here.
-class Dish_Type(models.Model):
-    cuisine = models.CharField(max_length = 50)
-    diet = models.CharField(max_length = 50)
+# class Dish_Type(models.Model):
+#     cuisine = models.CharField(max_length = 50)
+#     diet = models.CharField(max_length = 50)
     
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
     
-    def get_absolute_url(self):
-        return reverse('dish_types_detail', kwargs = {
-            'pk': self.id
-        })
+#     def get_absolute_url(self):
+#         return reverse('dish_types_detail', kwargs = {
+#             'pk': self.id
+#         })
+
+class Nutrient(models.Model):
+    label = models.CharField(max_length=50)
+    quantity = models.FloatField()
+    unit = models.CharField(max_length=10)
     
 # EDAMAM API Model (incomplete)
 # create a model for label
@@ -31,26 +36,38 @@ class Dish_Type(models.Model):
 # in html
     # recipe.nutrition_label.attr
 class Nutrition_Label(models.Model):
-    calories = models.IntegerField()
-    total_fats = models.IntegerField()
-    cholesterol = models.IntegerField()
-    sodium = models.IntegerField()
-    total_carbs = models.IntegerField()
-    protein = models.IntegerField()
+    recipe_uri = models.URLField(default = 'UNKNOWN_RECIPE_URI')
+    yield_value = models.FloatField(default = 1.0)
+    calories = models.FloatField(default = 0.0)
+    total_fats = models.FloatField(default = 0.0)
+    cholesterol = models.FloatField(default = 0.0)
+    sodium = models.FloatField(default = 0.0)
+    total_carbs = models.FloatField(default = 0.0)
+    protein = models.FloatField(default = 0.0)
+    nutrients = models.ManyToManyField(Nutrient)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     
 
 
+    def save(self, *args, **kwargs):
+        # If yield_value is not provided, set it to the serving_size of the associated Recipe
+        if not self.yield_value and self.recipe:
+            self.yield_value = self.recipe.serving_size
+
+        super().save(*args, **kwargs)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 class Recipe(models.Model):
     name = models.CharField(max_length = 75)
-    serving_size = models.CharField(max_length = 75)
+    serving_size = models.FloatField(default = 1.0)
     ingredients = models.TextField(blank = True)
     description = models.TextField()
     directions = models.TextField()
     # One:One relation with Nutrition Label
     nutrition_label = models.OneToOneField(Nutrition_Label, on_delete=models.CASCADE, null=True, blank=True)
     # M:M relation tie-in
-    dish_types = models.ManyToManyField(Dish_Type)
+    # dish_types = models.ManyToManyField(Dish_Type)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def add_ingredient(self, ingredient):
