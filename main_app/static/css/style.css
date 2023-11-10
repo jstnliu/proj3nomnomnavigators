@@ -12,8 +12,7 @@
 }
 
 body {
-  background-image: url("static/nomback.svg");
-  font-family: 'Concert One', sans-serif;
+
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -33,6 +32,7 @@ nav {
 }
 
 .nav-wrapper {
+  font-family: 'Concert One', sans-serif;
   display: flex;
   justify-content:space-between;
   align-items: center;
@@ -41,4 +41,27 @@ nav {
 .form {
   font-family: 'Concert One', sans-serif;
 }
+
+.demo-result-label {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 8px;
+}
+
+.performance-facts__title {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 24px;
+}
+
+h1 {
+  font-family: 'Concert One', sans-serif;
+}
+
+  
+#home {
+  background-image: url("/static/home.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
 
