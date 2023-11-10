@@ -38,6 +38,8 @@ class Nutrition_Label(models.Model):
     total_carbs = models.IntegerField()
     protein = models.IntegerField()
     user = models.ForeignKey(User, on_delete = models.CASCADE)
+    
+
 
 class Recipe(models.Model):
     name = models.CharField(max_length = 75)

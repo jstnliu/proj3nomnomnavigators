@@ -33,6 +33,7 @@
         <div class="card-content">
             <!-- Nutrition Label -->
           <a href="{% url 'label_create' recipe.id %}">Create Nutrition Label</a>
+          <p>Calories: {{ recipe.nutrition_label.calories }}</p>
         </div>
       </div> 
     </div>
