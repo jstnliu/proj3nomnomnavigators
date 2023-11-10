@@ -44,6 +44,13 @@ class Nutrition_Label(models.Model):
     sodium = models.FloatField(default = 0.0)
     total_carbs = models.FloatField(default = 0.0)
     protein = models.FloatField(default = 0.0)
+    total_fat = models.FloatField(default = 0.0)
+    saturated_fat = models.FloatField(default = 0.0)
+    trans_fat = models.FloatField(default = 0.0)
+    dietary_fiber = models.FloatField(default = 0.0)
+    total_carbs = models.FloatField(default = 0.0)
+    total_sugars = models.FloatField(default = 0.0)
+    added_sugars = models.FloatField(default = 0.0)
     nutrients = models.ManyToManyField(Nutrient)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     
