@@ -209,12 +209,11 @@ def label_create(request, recipe_id):
 
         nutrition_label.yield_value = nutrition_data.get('yield', 1.0)
         nutrition_label.calories = nutrition_data['calories']
-        nutrition_label.total_fats = nutrition_data.get('total_fats', 0.0)
         nutrition_label.cholesterol = nutrition_data.get('cholesterol', 0.0)
         nutrition_label.sodium = nutrition_data.get('sodium', 0.0)
         nutrition_label.total_carbs = nutrition_data.get('total_carbs', 0.0)
         nutrition_label.protein = nutrition_data.get('protein', 0.0)
-        nutrition_label.total_fat = nutrition_data.get('total', 0.0)
+        nutrition_label.total_fat = nutrition_data.get('total lipid fat', 0.0)
         nutrition_label.saturated_fat = nutrition_data.get('fatty acids, total saturated', 0.0)
         nutrition_label.trans_fat = nutrition_data.get('fatty acids, total trans', 0.0)
         nutrition_label.dietary_fiber = nutrition_data.get('fiber, total dietary', 0.0)
