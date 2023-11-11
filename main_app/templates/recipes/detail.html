@@ -5,7 +5,7 @@
 
 <div class="row">
   <div class="col s12">
-    <div class="card">
+    <div class="card deep-orange lighten-5">
       <div class="card-content">
         <!-- Details -->
         <span class="card-title">{{ recipe.name }}</span>
@@ -23,10 +23,10 @@
 </div>
 
   <div class="row">
-    <div class="col s6">
+    <div class="col s6" id="nutrition">
       <div class="card">
         <div class="card-content">
-              <h1 class="performance-facts__title">Nutrition Facts</h1>
+              <h1 class="performance-facts__title" id="nutrition-title">Nutrition Facts</h1>
               <p><span id="lnumser">{{ recipe.nutrition_label.yield_value }} </span> servings per container</p>
             </div>
             <table class="performance-facts__table">
@@ -42,7 +42,7 @@
                 </tr>
              
                 <tr>
-                  <th colspan="2"><b>Total Fat</b>{{ recipe.nutrition_label.total_fats }}</th>
+                  <th colspan="2"><b>Total Fat</b>{{ recipe.nutrition_label.total_fat }}</th>
                 </tr>
                 <tr>
                   <td class="blank-cell"></td>
@@ -94,7 +94,7 @@
 
         </div>
       </div>
-      <div class="col s6">
+      <div class="col s6" id="photo">
         {% for photo in recipe.photo_set.all %}
           <img class="responsive-img card-panel" src="{{photo.url}}">
         {% empty %}
@@ -111,7 +111,7 @@
   </div>
  
 <div class="row">
-  <div class="col">
+  <div class="col" id="comments">
     <form action="{% url 'add_review' recipe.id %}" method="POST">
       {% csrf_token %}
       <!-- render inputs -->
@@ -125,9 +125,18 @@
       <h3>Comments</h3>
       <tbody>
         {% for review in recipe.review_set.all %}
-        <tr><td>Date: {{ review.date }}</td></tr>
-        <tr><td>Rating: {{ review.get_rating_display }}</td></tr>
-        <tr><td>{{ review.comment }}</td></tr>
+        <tr>
+          <td>
+            <!-- Materialize card -->
+            <div class="card">
+              <div class="card-content">
+                <p>Date: {{ review.date }}</p>
+                <p>Rating: {{ review.get_rating_display }}</p>
+                <p>Comment: {{ review.comment }}</p>
+              </div>
+            </div>
+          </td>
+        </tr>
         {% endfor %}
       </tbody>
     </table>

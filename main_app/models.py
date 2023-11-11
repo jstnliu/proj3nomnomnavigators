@@ -39,7 +39,6 @@ class Nutrition_Label(models.Model):
     recipe_uri = models.URLField(default = 'UNKNOWN_RECIPE_URI')
     yield_value = models.FloatField(default = 1.0)
     calories = models.FloatField(default = 0.0)
-    total_fats = models.FloatField(default = 0.0)
     cholesterol = models.FloatField(default = 0.0)
     sodium = models.FloatField(default = 0.0)
     total_carbs = models.FloatField(default = 0.0)
@@ -54,7 +53,7 @@ class Nutrition_Label(models.Model):
     nutrients = models.ManyToManyField(Nutrient)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     
-
+   
 
     def save(self, *args, **kwargs):
         # If yield_value is not provided, set it to the serving_size of the associated Recipe
