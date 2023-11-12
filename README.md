@@ -1,7 +1,8 @@
  
 # What is Nom-Nom Navigator?
-<p></p>
-<img src="">
+<p>NomNom Navigator is a practical app designed for easy meal planning. Users can save their own recipes, explore a variety of dishes from the community, and access detailed nutrition facts for their recipes. Whether you enjoy cooking or are focused on maintaining a healthy diet, NomNom Navigator simplifies the process of organizing, discovering, and understanding the nutritional content of your meals. It's the essential tool to streamline your cooking experience and keep your kitchen activities well-organized and informed.
+</p>
+<img src="screenshot.png">
 
 # Inspiration
 <p> </p>
@@ -28,3 +29,6 @@ Link to live build: https://nomnom-navigators-f3c26b023052.herokuapp.com/
 
 
 # Next Steps
+- Make the Edamam API more intuitive by allowing users to select the serving amount for nutritonal data
+- Add tags so users can search by cuisine type
+- 
