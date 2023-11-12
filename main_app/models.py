@@ -39,28 +39,35 @@ class Nutrition_Label(models.Model):
     recipe_uri = models.URLField(default = 'UNKNOWN_RECIPE_URI')
     yield_value = models.FloatField(default = 1.0)
     calories = models.FloatField(default = 0.0)
-    total_fats = models.FloatField(default = 0.0)
-    cholesterol = models.FloatField(default = 0.0)
-    sodium = models.FloatField(default = 0.0)
-    total_carbs = models.FloatField(default = 0.0)
-    protein = models.FloatField(default = 0.0)
     total_fat = models.FloatField(default = 0.0)
     saturated_fat = models.FloatField(default = 0.0)
     trans_fat = models.FloatField(default = 0.0)
+    cholesterol = models.FloatField(default = 0.0)
+    sodium = models.FloatField(default = 0.0)
     dietary_fiber = models.FloatField(default = 0.0)
+    protein = models.FloatField(default = 0.0)
     total_carbs = models.FloatField(default = 0.0)
     total_sugars = models.FloatField(default = 0.0)
-    added_sugars = models.FloatField(default = 0.0)
+    # added_sugars = models.FloatField(default = 0.0)
     nutrients = models.ManyToManyField(Nutrient)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     
-
-
     def save(self, *args, **kwargs):
         # If yield_value is not provided, set it to the serving_size of the associated Recipe
         if not self.yield_value and self.recipe:
             self.yield_value = self.recipe.serving_size
-
+        
+        # Round the float fields to two decimal places before saving
+        self.calories = round(self.calories, 2)
+        self.total_fat = round(self.total_fat, 2)
+        self.saturated_fat = round(self.saturated_fat, 2)
+        self.trans_fat = round(self.trans_fat, 2)
+        self.cholesterol = round(self.cholesterol, 2)
+        self.sodium = round(self.sodium, 2)
+        self.dietary_fiber = round(self.dietary_fiber, 2)
+        self.protein = round(self.protein, 2)
+        self.total_carbs = round(self.total_carbs, 2)
+        self.total_sugars = round(self.total_sugars, 2)
         super().save(*args, **kwargs)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
