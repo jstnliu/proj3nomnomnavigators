@@ -26,7 +26,9 @@
     <div class="col s6" id="nutrition">
       <div class="card">
         <div class="card-content">
+          <a href="{% url 'label_create' recipe.id %}">Create Nutrition Label</a>
               <h1 class="performance-facts__title" id="nutrition-title">Nutrition Facts</h1>
+
               <p><span id="lnumser">{{ recipe.nutrition_label.yield_value }} </span> servings per container</p>
             </div>
             <table class="performance-facts__table">
@@ -77,7 +79,7 @@
                 </tr>
                 <tr>
                   <td class="blank-cell"></td>
-                  <th><b>Added Sugars</b> {{ recipe.nutrition_label.added_sugars }}</th>
+                  <th><b>Includes</b> - Added Sugars</th>
         
                 </tr>
                 <tr class="thick-end">

@@ -203,28 +203,30 @@ def label_create(request, recipe_id):
     # Send request to Edamam API
     response = requests.request("POST", url, headers=headers, data=payload)
 
+    # print('response.text', response.text)
+
     if response.status_code == 200:
         # Parse the response and update Nutrition_Label instance
+        # EXAMPLE FOR UNITS/ WOULD NEED A NEW LINE LIKE 'n_l.sodium_unit'
+        # nutrition_data['totalNutrients']['NA']['unit'] 
         nutrition_data = json.loads(response.text)
-
-        nutrition_label.yield_value = nutrition_data.get('yield', 1.0)
+        nutrition_label.yield_value = nutrition_data['yield']
         nutrition_label.calories = nutrition_data['calories']
-        nutrition_label.cholesterol = nutrition_data.get('cholesterol', 0.0)
-        nutrition_label.sodium = nutrition_data.get('sodium', 0.0)
-        nutrition_label.total_carbs = nutrition_data.get('total_carbs', 0.0)
-        nutrition_label.protein = nutrition_data.get('protein', 0.0)
-        nutrition_label.total_fat = nutrition_data.get('total lipid fat', 0.0)
-        nutrition_label.saturated_fat = nutrition_data.get('fatty acids, total saturated', 0.0)
-        nutrition_label.trans_fat = nutrition_data.get('fatty acids, total trans', 0.0)
-        nutrition_label.dietary_fiber = nutrition_data.get('fiber, total dietary', 0.0)
-        nutrition_label.total_carbs = nutrition_data.get('carbohydrates (net)', 0.0)
-        nutrition_label.total_sugars = nutrition_data.get('sugars, total', 0.0)
-        nutrition_label.added_sugars = nutrition_data.get('added sugar', 0.0)
+        nutrition_label.cholesterol = nutrition_data['totalNutrients']['CHOLE']['quantity']
+        nutrition_label.sodium = nutrition_data['totalNutrients']['NA']['quantity']
+        nutrition_label.protein = nutrition_data['totalNutrients']['PROCNT']['quantity']
+        nutrition_label.total_fat = nutrition_data['totalNutrients']['FAT']['quantity']
+        nutrition_label.saturated_fat = nutrition_data['totalNutrients']['FASAT']['quantity']
+        nutrition_label.trans_fat = nutrition_data['totalNutrients']['FATRN']['quantity']
+        nutrition_label.dietary_fiber = nutrition_data['totalNutrients']['FIBTG']['quantity']
+        nutrition_label.total_carbs = nutrition_data['totalNutrients']['CHOCDF.net']['quantity']
+        nutrition_label.total_sugars = nutrition_data['totalNutrients']['SUGAR']['quantity']
+        # NOT FOUND SUGARS, ADDED
+        # nutrition_label.added_sugars = nutrition_data.get('Sugars, added', 0.0)
         # Update or create nutrients
         nutrients = nutrition_data.get('totalNutrients', {})
         nutrition_label.user = request.user
         nutrition_label.save()
-
         # Associate the Nutrition_Label with the Recipe
         recipe.nutrition_label = nutrition_label
         recipe.save()
