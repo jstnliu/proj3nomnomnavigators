@@ -14,10 +14,12 @@
         <p>Description: {{ recipe.description|linebreaks }}</p>
         <p>Directions: {{ recipe.directions|linebreaks }}</p>
       </div>
+      {% if recipe.user == user %}
       <div class="card-action">
         <a href="{% url 'recipes_update' recipe.id %}">Edit</a>
         <a href="{% url 'recipes_delete' recipe.id %}">Delete</a>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -40,51 +42,52 @@
               <tbody>
                 <tr>
                   <th colspan="2" id="lkcal-val-cal"><b>Calories</b></th>
-                  <td class="nob">{{ recipe.nutrition_label.calories }} </td>
+                  <td class="nob"> {{ recipe.nutrition_label.calories }} </td>
                 </tr>
              
                 <tr>
-                  <th colspan="2"><b>Total Fat</b>{{ recipe.nutrition_label.total_fat }}</th>
+                  <th colspan="2"><b>Total Fat</b></th>
+                  <td class="nob"> {{ recipe.nutrition_label.total_fat }} {{ recipe.nutrition_label.total_fat_unit }} </td>
                 </tr>
                 <tr>
                   <td class="blank-cell"></td>
-                  <th><b>Saturated Fat</b> {{ recipe.nutrition_label.saturated_fat }}</th>
-                
+                  <th><b>Saturated Fat</b></th>
+                  <td class="nob"> {{ recipe.nutrition_label.saturated_fat }} {{ recipe.nutrition_label.saturated_fat_unit }} </td>
                 </tr>
                 <tr>
                   <td class="blank-cell"></td>
-                  <th><b>Trans Fat</b> {{ recipe.nutrition_label.trans_fat }}</th>
-              
+                  <th><b>Trans Fat</b></th>
+                  <td class="nob"> {{ recipe.nutrition_label.trans_fat }} {{ recipe.nutrition_label.trans_fat_unit }} </td>
                 </tr>
                 <tr>
-                  <th colspan="2"><b>Cholesterol</b>{{ recipe.nutrition_label.cholesterol }}</th>
-                
+                  <th colspan="2"><b>Cholesterol</b></th>
+                  <td class="nob"> {{ recipe.nutrition_label.cholesterol }} {{ recipe.nutrition_label.cholesterol_unit }} </td>
                 </tr>
                 <tr>
-                  <th colspan="2"><b>Sodium</b> {{ recipe.nutrition_label.sodium }}</th>
-                 
+                  <th colspan="2"><b>Sodium</b></th>
+                  <td class="nob"> {{ recipe.nutrition_label.sodium }} {{ recipe.nutrition_label.sodium_unit }} </td>
                 </tr>
                 <tr>
-                  <th colspan="2"><b>Total Carbohydrate</b> {{ recipe.nutrition_label.total_carbs }}</th>
-                  
-                </tr>
-                <tr>
-                  <td class="blank-cell"></td>
-                  <th><b>Dietary Fiber</b> {{ recipe.nutrition_label.dietary_fiber }}</th>
+                  <th colspan="2"><b>Total Carbohydrate</b></th>
+                  <td class="nob"> {{ recipe.nutrition_label.total_carbs }} {{ recipe.nutrition_label.total_carbs_unit }} </td>
                 </tr>
                 <tr>
                   <td class="blank-cell"></td>
-                  <th><b>Total Sugars</b> {{ recipe.nutrition_label.total_sugars }}</th>
-             
+                  <th><b>Dietary Fiber</b></th>
+                  <td class="nob"> {{ recipe.nutrition_label.dietary_fiber }} {{ recipe.nutrition_label.dietary_fiber_unit }} </td>
+                </tr>
+                <tr>
+                  <td class="blank-cell"></td>
+                  <th><b>Total Sugars</b></th>
+                  <td class="nob"> {{ recipe.nutrition_label.total_sugars }} {{ recipe.nutrition_label.total_sugars_unit }} </td>
                 </tr>
                 <tr>
                   <td class="blank-cell"></td>
                   <th><b>Includes</b> - Added Sugars</th>
-        
                 </tr>
                 <tr class="thick-end">
-                  <th colspan="2"><b>Protein</b> {{ recipe.nutrition_label.protein }}</th>
-               
+                  <th colspan="2"><b>Protein</b></th>
+                  <td class="nob"> {{ recipe.nutrition_label.protein }} {{ recipe.nutrition_label.protein_unit }} </td>
                 </tr>
               </tbody>
             </table>
@@ -120,6 +123,8 @@
       {{ review_form.as_p }}
       <input type="submit" class="btn" value="Comment">
     </form>
+  </div>
+</div>
     <br>
     <div class="card">
       <div class="card-content">
