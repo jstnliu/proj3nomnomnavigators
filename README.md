@@ -38,13 +38,7 @@ Navigate to "Your Recipes" and click on the desired recipe to update any of the 
 <b>Rate a recipe:</b>
 Navigate to "All Recipes" and click on the targeted reciped. Scroll to the bottom and you may rate and add a comment on other users recipes.
 
-# Challenges
-- Getting our API to function correctly was our biggest hurdle when creating this app. Since this was our first time working with an API.
-
 # Next Steps
 - Make the Edamam API more intuitive by allowing users to select the serving amount for nutritonal data
 - Add tags so users can search by cuisine type
-- Error handling for the nutrition label
-- Add additional filtering when searching for recipes
-- Add percent daily value to nutrition label
 

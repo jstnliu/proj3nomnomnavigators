@@ -12,17 +12,6 @@ RATINGS = (
 )
 
 # Create your models here.
-# class Dish_Type(models.Model):
-#     cuisine = models.CharField(max_length = 50)
-#     diet = models.CharField(max_length = 50)
-    
-#     def __str__(self):
-#         return self.name
-    
-#     def get_absolute_url(self):
-#         return reverse('dish_types_detail', kwargs = {
-#             'pk': self.id
-#         })
 
 class Nutrient(models.Model):
     label = models.CharField(max_length=50)
@@ -88,7 +77,8 @@ class Recipe(models.Model):
     directions = models.TextField()
     # One:One relation with Nutrition Label
     nutrition_label = models.OneToOneField(Nutrition_Label, on_delete=models.CASCADE, null=True, blank=True)
-    # M:M relation tie-in
+    # MOVE UP 'Dish_Type' MODEL FOR FUTURE USE
+    # # M:M relation tie-in
     # dish_types = models.ManyToManyField(Dish_Type)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
 
@@ -154,5 +144,16 @@ class Photo(models.Model):
     def __str__(self):
         return f'Photo for recipe_id: {self.recipe_id} @{self.url}'
 
+# class Dish_Type(models.Model):
+#     cuisine = models.CharField(max_length = 50)
+#     diet = models.CharField(max_length = 50)
+    
+#     def __str__(self):
+#         return self.name
+    
+#     def get_absolute_url(self):
+#         return reverse('dish_types_detail', kwargs = {
+#             'pk': self.id
+#         })
 
 

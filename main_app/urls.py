@@ -21,6 +21,7 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name = 'signup'),
 ]
 
+	# MOVE UP PATHS FOR FUTURE USE W/ TAGS
     # # 	DISH_TYPE FUNCTIONS
 	# path('dish_types/', views.Dish_TypeList.as_view(), name = 'dish_types_index'),
     # path('dish_types/<int:pk>/', views.Dish_TypeDetail.as_view(), name = 'dish_types_detail'),
