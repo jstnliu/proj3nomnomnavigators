@@ -17,12 +17,12 @@
         <p><b>Ingredients:</b> {{ recipe.ingredients|linebreaks }}</p> -->
         <p><b>Description:</b> {{ recipe.description|linebreaks }}</p>
       </div>
-       <!-- if statement for 'user' visibility
+      {% if recipe.user == user %}
       <div class="card-action">
-        <a href="% url 'recipes_update' recipe.id %}">Edit</a>
-        <a href="% url 'recipes_delete' recipe.id %}">Delete</a>
-      </div> -->
-      <!-- endif -->
+        <a href="{% url 'recipes_update' recipe.id %}">Edit</a>
+        <a href="{% url 'recipes_delete' recipe.id %}">Delete</a>
+      </div>
+      {% endif %}
     </div>
   </a>
 {% endfor %}

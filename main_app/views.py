@@ -210,17 +210,26 @@ def label_create(request, recipe_id):
         # EXAMPLE FOR UNITS/ WOULD NEED A NEW LINE LIKE 'n_l.sodium_unit'
         # nutrition_data['totalNutrients']['NA']['unit'] 
         nutrition_data = json.loads(response.text)
-        nutrition_label.yield_value = nutrition_data['yield']
-        nutrition_label.calories = nutrition_data['calories']
-        nutrition_label.cholesterol = nutrition_data['totalNutrients']['CHOLE']['quantity']
-        nutrition_label.sodium = nutrition_data['totalNutrients']['NA']['quantity']
-        nutrition_label.protein = nutrition_data['totalNutrients']['PROCNT']['quantity']
-        nutrition_label.total_fat = nutrition_data['totalNutrients']['FAT']['quantity']
-        nutrition_label.saturated_fat = nutrition_data['totalNutrients']['FASAT']['quantity']
-        nutrition_label.trans_fat = nutrition_data['totalNutrients']['FATRN']['quantity']
-        nutrition_label.dietary_fiber = nutrition_data['totalNutrients']['FIBTG']['quantity']
-        nutrition_label.total_carbs = nutrition_data['totalNutrients']['CHOCDF.net']['quantity']
-        nutrition_label.total_sugars = nutrition_data['totalNutrients']['SUGAR']['quantity']
+        nutrition_label.yield_value = nutrition_data.get('yield', 0.0)
+        nutrition_label.calories = nutrition_data.get('calories', 0.0)
+        nutrition_label.cholesterol = nutrition_data['totalNutrients'].get('CHOLE', {}).get('quantity', 0.0)
+        nutrition_label.cholesterol_unit = nutrition_data['totalNutrients'].get('CHOLE', {}).get('unit', 'mg')
+        nutrition_label.sodium = nutrition_data['totalNutrients'].get('NA', {}).get('quantity', 0.0)
+        nutrition_label.sodium_unit = nutrition_data['totalNutrients'].get('NA', {}).get('unit', 'mg')
+        nutrition_label.protein = nutrition_data['totalNutrients'].get('PROCNT', {}).get('quantity', 0.0)
+        nutrition_label.protein_unit = nutrition_data['totalNutrients'].get('PROCNT', {}).get('unit', 'g')
+        nutrition_label.total_fat = nutrition_data['totalNutrients'].get('FATRN', {}).get('quantity', 0.0)
+        nutrition_label.total_fat_unit = nutrition_data['totalNutrients'].get('FATRN', {}).get('unit', 'g')
+        nutrition_label.saturated_fat = nutrition_data['totalNutrients'].get('FASAT', {}).get('quantity', 0.0)
+        nutrition_label.saturated_fat_unit = nutrition_data['totalNutrients'].get('FASAT', {}).get('unit', 'g')
+        nutrition_label.trans_fat = nutrition_data['totalNutrients'].get('FAT', {}).get('quantity', 0.0)
+        nutrition_label.trans_fat_unit = nutrition_data['totalNutrients'].get('FAT', {}).get('unit', 'g')
+        nutrition_label.dietary_fiber = nutrition_data['totalNutrients'].get('FIBTG', {}).get('quantity', 0.0)
+        nutrition_label.dietary_fiber_unit = nutrition_data['totalNutrients'].get('FIBTG', {}).get('unit', 'g')
+        nutrition_label.total_carbs = nutrition_data['totalNutrients'].get('CHOCDF', {}).get('quantity', 0.0)
+        nutrition_label.total_carbs_unit = nutrition_data['totalNutrients'].get('CHOCDF', {}).get('unit', 'g')
+        nutrition_label.total_sugars = nutrition_data['totalNutrients'].get('SUGAR', {}).get('quantity', 0.0)
+        nutrition_label.total_sugars_unit = nutrition_data['totalNutrients'].get('SUGAR', {}).get('unit', 'g')
         # NOT FOUND SUGARS, ADDED
         # nutrition_label.added_sugars = nutrition_data.get('Sugars, added', 0.0)
         # Update or create nutrients
