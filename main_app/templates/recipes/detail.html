@@ -1,4 +1,4 @@
-% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block content %}
 
 <h1>Recipe Details</h1>
@@ -31,7 +31,6 @@
         <a href="{% url 'label_create' recipe.id %}">Create Nutrition Label</a>
           <h1 class="performance-facts__title" id="nutrition-title">Nutrition Facts</h1>
           <p><span id="lnumser">{{ recipe.nutrition_label.yield_value }} </span> servings per container</p>
-      </div>
           <table class="performance-facts__table">
             <thead>
               <tr>
@@ -95,6 +94,7 @@
           <p class="small-info" id="small-nutrition-info">
             *Percent Daily Values are based on a 2000 calorie diet
           </p>
+      </div>    
     </div>
   </div>
     <div class="col s6" id="photo">
