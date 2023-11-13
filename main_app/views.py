@@ -41,10 +41,6 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-# @login_required
-# def about(request):
-#     return render(request, 'about.html')
-
 @login_required
 def recipes_user(request):
     recipes = Recipe.objects.filter(user = request.user)
@@ -70,16 +66,18 @@ def recipes_all(request):
 @login_required
 def recipes_detail(request, recipe_id):
     recipe = Recipe.objects.get(id = recipe_id)
-    # list of of dish_type ids that recipe DOES have
+    # FUTURE dish_type FUNCTIONALITY
+    # # list of of dish_type ids that recipe DOES have
     # id_list = recipe.dish_types.all().values_list('id')
-    # query for dish_types cat DOESN'T have
-    # by using exclude() method 
+    # # query for dish_types recipe DOESN'T have
+    # # by using exclude() method 
     # dish_types_recipe_doesnt_have = Dish_Type.objects.exclude(id_in = id_list)
     review_form = ReviewForm()
     return render(request, 'recipes/detail.html', {
        'recipe': recipe,
        'review_form': review_form,
-    #    'dish_types': dish_types_recipe_doesnt_have,
+    #  CBVs FOR FUTURE USE COMMENTED OUT
+    #  'dish_types': dish_types_recipe_doesnt_have,
     })
 
 class RecipeCreate(LoginRequiredMixin, CreateView):
@@ -125,27 +123,6 @@ def add_review(request, recipe_id):
         new_recipe.recipe_id = recipe_id
         new_recipe.save()
     return redirect('detail', recipe_id = recipe_id)
-
-# class Dish_TypeList(LoginRequiredMixin, ListView):
-#    model = Dish_Type
-
-# class Dish_TypeDetail(LoginRequiredMixin, DetailView):
-#    model = Dish_Type
-
-# class Dish_TypeCreate(LoginRequiredMixin, CreateView):
-#    model = Dish_Type
-#    fields = '__all__'
-
-# class Dish_TypeUpdate(LoginRequiredMixin, UpdateView):
-#    model = Dish_Type
-#    fields = [
-#       'cuisine',
-#       'diet'
-#     ]
-
-# class Dish_TypeDelete(LoginRequiredMixin, DeleteView):
-#    model = Dish_Type
-#    success_url = '/dish_types'
 
 @login_required
 def assoc_dish_type(request, recipe_id, dish_type_id):
@@ -203,12 +180,13 @@ def label_create(request, recipe_id):
     # Send request to Edamam API
     response = requests.request("POST", url, headers=headers, data=payload)
 
+    # # USED ONLY FOR TESTING/DEV PURPOSES 
+    # # COMMENT OUT WHEN NOT IN USE
     # print('response.text', response.text)
 
     if response.status_code == 200:
         # Parse the response and update Nutrition_Label instance
-        # EXAMPLE FOR UNITS/ WOULD NEED A NEW LINE LIKE 'n_l.sodium_unit'
-        # nutrition_data['totalNutrients']['NA']['unit'] 
+        # Each 'nutritional value' will have a 'quantity' and 'unit'
         nutrition_data = json.loads(response.text)
         nutrition_label.yield_value = nutrition_data.get('yield', 0.0)
         nutrition_label.calories = nutrition_data.get('calories', 0.0)
@@ -253,32 +231,28 @@ def label_create(request, recipe_id):
         return HttpResponseBadRequest(response.text)
 
     return redirect('detail', recipe_id=recipe_id)
-# # work on feeding actual food ing into payload
-#     recipe = Recipe.objects.get(id = recipe_id)
-#     ingredients_list = recipe.get_ingredients_list()
-#     url = "https://api.edamam.com/api/nutrition-details?app_key=fa795efd1a20b3360e47f10934c667ab&app_id=27c6d9ed"
 
-#     payload = json.dumps({
-#     "title": f"{recipe.name}",
-#     "ingr": ingredients_list,
-#     })
-#     headers = {
-#     'Content-Type': 'application/json'
-#     }
-# # send response to detail.html
-#     response = requests.request("POST", url, headers=headers, data=payload)
+# WILL BE USED FOR THE TAG SYSTEM
+# -------------------------------
+# class Dish_TypeList(LoginRequiredMixin, ListView):
+#    model = Dish_Type
 
-#     if response.status_code == 200:
-#             # Parse the response and create a Nutrition_Label instance
-#             nutrition_data = json.loads(response.text)
-#             nutrition_label = Nutrition_Label.objects.create(
-#                 calories=nutrition_data['calories'],
-#                 # Add other fields based on your JSON structure
-#                 user=request.user  # or whatever logic you use to get the user
-#             )
-#             # Associate the Nutrition_Label with the Recipe
-#             recipe.nutrition_label = nutrition_label
-#             recipe.save()
+# class Dish_TypeDetail(LoginRequiredMixin, DetailView):
+#    model = Dish_Type
 
-#     print(response.text)
-#     return redirect('detail', recipe_id = recipe_id) 
+# class Dish_TypeCreate(LoginRequiredMixin, CreateView):
+#    model = Dish_Type
+#    fields = '__all__'
+
+# class Dish_TypeUpdate(LoginRequiredMixin, UpdateView):
+#    model = Dish_Type
+#    fields = [
+#       'cuisine',
+#       'diet'
+#     ]
+
+# class Dish_TypeDelete(LoginRequiredMixin, DeleteView):
+#    model = Dish_Type
+#    success_url = '/dish_types'
+# -------------------------------
+# WILL BE USED FOR TEH TAG SYSTEM

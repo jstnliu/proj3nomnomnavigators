@@ -4,6 +4,7 @@
 
 {% if object %}
     <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
+    <h5>Remember to separate your ingredients with a comma!</h5>
 {% else %}
     <h1>Add Recipe</h1>
     <h5>Please separate your ingredients with a comma!</h5>
@@ -15,11 +16,11 @@
     <table>
         {{ form.as_table }}
     </table>
-{% if object %}
-    <input type="submit" value="Edit Recipe" class="btn">
-{% else %}
-    <input type="submit" value="Add Recipe" class="btn">
-{% endif %}
+    {% if object %}
+        <input type="submit" value="Edit Recipe" class="btn">
+    {% else %}
+        <input type="submit" value="Add Recipe" class="btn">
+    {% endif %}
 </form>
 
 {% endblock %}
